@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html> 
+ 
+ 
+   
+<title>This stuff</title> 
+<head> 
+	
+Welcome to GenGen version 0.0027  
+	
+		<style> 
+			
+			body
+				{
+				background-image:url('http://i.imgur.com/cyGUFCj.png');
+				background-repeat:repeat;
+				overflow:auto; 
+				}
+			
+			
+			div.postbox {
+				position:absolute; 
+				top:450px;
+				 
+
+				} 
+		
+			div.description {
+			    position:absolute; 
+				top: 10px; 
+				left: 450px; 
+				}
+		</style>
+		
+	</head> 
+		
+	<body> 
+	    
+		<!-- the div for the display box --> 
+	    Hey Geners
+		<div id="demo" style="background-color:white;height:400px;width:425px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+           </div> 
+		<div class="description">
+		
+			<a href="updates.html">Updates page</a> </br> 
+			Removed HTML insertion ability. LOOK AT RULES PLEASE </br> 
+			<a href="rules.html">PLEASE READ, THE RULES</a> </br> 
+			<a href="devs.html">Devs for the upcoming battle system </a> </br> 
+			
+		
+		
+<b>Bob the slime</b> </br><img src='http://i.imgur.com/8n91x24.png' alt='broken'>Health: <img src='http://i.imgur.com/V8e2JoC.png' alt='broken'><img src='http://i.imgur.com/V8e2JoC.png' alt='broken'><img src='http://i.imgur.com/V8e2JoC.png' alt='broken'>		
+		</div> 
+<div class="postbox" > 
+				<form action="insert.php" method="post"> 
+					<textarea id="messagecontent" rows="5" cols="50" name="thepost"> </textarea> </br>
+					<input type="submit" value ="submit">
+				
+				</form> 
+			
+			</div> 		
+		
+		
+		
+		 
+	</body> 
+	
+</html>
