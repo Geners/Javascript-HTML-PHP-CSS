@@ -1,0 +1,217 @@
+<html> 
+
+<body> 
+	<p id="level"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0>0)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <)(> _ <) </p> 
+	<p id="playerhealth">Player HP: 100 </p> 
+	<p id="enemyhealth">Enemy HP: 10 </p> 
+	<p id="successes">Number of Successes 0 </p> 
+	<p id="xplevel"> </p>
+	<p id="victory"> </p> 
+	<p id="inventory">Weapon, Armor, and enemy codes unlocked:  </p> 
+	<script> 
+	    //Initializing all of the variables
+		var counter = 0; 
+		var successes = 0; 
+		var enemies = 10 + Number(localStorage.level);
+		var MAXenemies = enemies;
+		var player = "err";  
+		var enemy = "err";
+		var successtext = "err"
+		var space = "err"; 
+		var enemieskilled = 0; 
+		var playerhealth = 100;
+		var enemyhealth = 10; 
+		var megasword = 0; 
+		var starsword = 0; 
+		var enemyskin = 0;
+		var currentlevel = "current level: "; 
+		var damage = 10; 
+		var inventory = 'Weapon, Armor, and enemy codes unlocked: dyzzi'; 
+		var inventoryP = document.getElementById("inventory").innerHTML;
+		
+		if(Number(localStorage.level) >= 5) 
+		{
+			inventoryP = <?php echo "inventory;" ?> 
+			if(Number(localStorage.level) >= 10) { 
+				inventoryP = <?php echo "inventory.concat(', truewinna');" ?> 
+		}
+		}
+		 
+		
+		if(localStorage.level) {
+			document.getElementById("xplevel").innerHTML = currentlevel.concat(localStorage.level)
+		}
+		else {
+			localStorage.level = 0; 
+		}
+	
+	    //function to start the game---------------------------------------------------------------------------
+		function Create() {
+		
+	
+	
+		     //-----------Checks if player has lost------------------------------------------------------------
+			if(playerhealth <= 0) {
+				document.getElementById("level").innerHTML = "YOU LOST";
+				return; 
+								}
+			//--------------Empty space to be placed behind the player-----------------------------------------
+		    space = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			
+			spaceholder = space;
+			
+			//-------------Appearance of player----------------------------------------------------------------
+			if(megasword == 1) {
+				player = "(0>0)8====D";
+								}
+			 else if(starsword == 1 ) {
+			   player = "(0>0)-*"; 
+			 }
+			else{
+				player = "(0>0)";
+						}
+						
+
+			
+			
+			//------------Text to go before number of successes-------------------------------------------------
+			successtext = "Number of Successes "; 
+			
+			//----------------Adds more spaces every time the attack button is pressed--------------------------
+	 		counter = enemieskilled; 
+			while(counter > 0) {
+					space = space.concat(spaceholder); 
+					counter--; 
+					                }
+			player = space.concat(player); 
+			
+			//------------------Adds the enemies---------------------------------------------------------------
+	
+			counter = enemies; 			
+			while( counter > 0) {
+			
+			    if (enemyskin == 0)
+					enemy ="(> _ <)";
+				else {
+					enemy ="<img src='http://cs618523.vk.me/v618523073/4c07/NGLPJ9HMP0Q.jpg'>";
+				}
+				
+				
+				if(counter == enemies && starsword == 1 && enemyhealth < 5) {
+				 enemy = "(=^.^=)~ MEOW"; 
+				}
+				
+				
+				player = player.concat(enemy); 
+				counter--; 
+								}
+			
+			//----------------Prints the level to the screen ------------------------------------------------
+			document.getElementById("level").innerHTML = player; 
+             
+			//---------------Creates and adds the number of successes-----------------------------------------
+			successtext = successtext.concat(successes); 
+			if(enemies > -1) {
+				document.getElementById("successes").innerHTML = successtext; 
+							 }
+							 
+			//--------------Checks if you have won------------------------------------------------------
+			if (successes >= MAXenemies) {
+				document.getElementById("victory").innerHTML = "<h1> VICTORY 8=======D </h1>"; 
+				
+				localStorage.level = Number(localStorage.level) + 1; 
+				
+				                         }
+										 
+			
+			//-------------Calculates Damage------------------------------------------------------------
+			if(enemies > 0) { 
+				if(megasword == 0) {
+					enemyhealth = enemyhealth - Math.floor((Math.random() * 10) + 1);
+			                       }
+			 
+				else{
+					enemyhealth = enemyhealth - Math.floor((Math.random() * 50) + 1);
+			        }
+					
+				if(enemyskin == 1) {
+					playerhealth = playerhealth - Math.floor((Math.random() * 15) + 1);
+				}
+				else {
+					playerhealth = playerhealth - Math.floor((Math.random() * 8) + 1);
+				}
+			 }
+			else {
+				enemieskilled++;
+			}
+			
+			//----------Checks if you have killed the current enemy-----------------------------------
+           
+            if(enemyhealth <= 0) {
+				successes++; 
+				enemies--;  
+				enemieskilled++;
+				if(starsword == 0) {
+					enemyhealth = 10; 
+					}
+				else {
+					enemyhealth = 5; 
+				}
+				
+			}
+			
+			
+			//--------Prints player health and enemy health to the screen --------------------------
+			var playertxt = "Player HP: ";
+			var enemytxt = "Enemy HP: "; 
+			document.getElementById("playerhealth").innerHTML = playertxt.concat(playerhealth);
+			document.getElementById("enemyhealth").innerHTML = enemytxt.concat(enemyhealth);
+			
+
+	
+}
+    //---------Function that equips the megasword
+	function equipsword() {
+		megasword = 1; 
+			}
+	function equipstarrod() {
+	   starsword = 1;
+	}
+	function fedoraskin() {
+	 enemyskin = 1; 
+	}
+	</script>
+
+	<button onclick="Create()">Attack! </button> 
+	</br> 
+	For weapon codes
+	<form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+	<input type = "text" name="weapon">
+	</br>
+	For enemy codes 
+	</br> 
+	<input type = "text" name="enemies">
+	</br> 
+	<button type="submit">Submit codes</button>
+	</form> 
+
+	<?php
+		if(isset($_POST["weapon"])) {
+			if($_POST["weapon"] == "truewinna") {
+				echo "<button onclick='equipsword()'>BEHOLD!</button>"; 
+	}
+			if($_POST["weapon"] == "dyzzi") {
+				echo "<button onclick='equipstarrod()'>ABRACADABRA! </button>";
+} }
+        if(isset($_POST["enemies"])) {
+			if($_POST["enemies"] == "mouthbreather") {
+			echo "<button onclick='fedoraskin()'>m'lady </button>";
+		 }
+		}
+?> 
+
+</body> 
+
+
+
+</html> 
