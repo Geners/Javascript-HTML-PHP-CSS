@@ -282,6 +282,5 @@ document.getElementById("music").innerHTML = "";
 }
 </script>
 <button onclick="stopSound()">Stop Music</button> 
-<!-- Hosting24 Analytics Code -->
-<script type="text/javascript" src="http://stats.hosting24.com/count.php"></script>
-<!-- End Of Analytics Code -->
+
+</html> 
